@@ -178,7 +178,7 @@ The currentStatus method returns a string with the one of the below values:
 
 <h2>Examples</h2>
 
-A fully working sample app.js is available in the module's example folder or for download [here](https://github.com/benbahrenburg/Ti.OneTok/tree/master/example).
+A fully working sample app.js is available in the module's example folder or for download [here](https://github.com/benbahrenburg/Ti.OneTok/tree/master/iOS/example).
 
 <h2>FAQ</h2>
 
