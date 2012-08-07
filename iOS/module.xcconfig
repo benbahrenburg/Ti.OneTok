@@ -1,1 +1,1 @@
-OTHER_LDFLAGS=$(inherited) -framework CoreFoundation -framework CoreAudio -framework AudioToolbox -framework Security
+OTHER_LDFLAGS=$(inherited) -framework CoreFoundation -framework CoreAudio -framework AudioToolbox -framework Security -framework Foundation
