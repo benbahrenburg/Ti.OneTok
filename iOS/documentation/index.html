@@ -35,6 +35,20 @@
 <li>This module will only work with iOS 4.2 or great.  </li>
 </ul>
 
+<h2>Running the module on your device</h2>
+
+<p>Titanium by default builds for armv6, armv7, and i386.  The OneTok SDK only supports armv7 and i386.  This means it will run fine in the Simulator but error when using the "Install to device" option in Titanium Studio.</p>
+
+<p>To fix this issue, please follow the below:</p>
+
+<ol>
+<li>Build your project in Titanium Studio with the usual "Install to device" option</li>
+<li>When you see an error in the console window, you then need to navigate to your projects build/iphone/ folder</li>
+<li>Open the xcode project {ProjectName}.xcodeproj</li>
+<li>Switch all of the armv6 | armv7 references to only have armv7</li>
+<li>Use the deploy to device option within xcode</li>
+</ol>
+
 <h2>Module Setup</h2>
 
 <ul>
@@ -189,7 +203,7 @@ alert("Current Status is " + foo);
 
 <h2>Examples</h2>
 
-<p>A fully working sample app.js is available in the module's example folder or for download <a href="https://github.com/benbahrenburg/Ti.OneTok/tree/master/example">here</a>.</p>
+<p>A fully working sample app.js is available in the module's example folder or for download <a href="https://github.com/benbahrenburg/Ti.OneTok/tree/master/iOS/example">here</a>.</p>
 
 <h2>FAQ</h2>
 

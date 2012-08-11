@@ -209,26 +209,31 @@ function fetchWindowOne(){
 	win.add(btnAuthenticate);
 
 	btnAuthenticate.addEventListener('click', function(){
-		function onError(e){
-			Ti.API.info(e);
-			alert('Errored on Authentication');
-		};
-		function onSuccess(e){
-			Ti.API.info('Authenticated Successfully, opening recording window');
-			tab1.open(fetchWindowTwo());
-		};
-		if(!Ti.Network.online){
-			alert("I'm sorry a network connection is needed to use this module");
-		}else{
-			oneTokSession.authenticate({
-					hostName : appConfigs[configIndex].hostName,
-					appID : appConfigs[configIndex].appID,
-					appToken : appConfigs[configIndex].appToken,
-					version : appConfigs[configIndex].version,
-					onSuccess:onSuccess,
-					onError:onError 		
-			});		
-		}		
+		try{
+			function onError(e){
+				Ti.API.info(e);
+				alert('Errored on Authentication');
+			};
+			function onSuccess(e){
+				Ti.API.info('Authenticated Successfully, opening recording window');
+				tab1.open(fetchWindowTwo());
+			};
+			if(!Ti.Network.online){
+				alert("I'm sorry a network connection is needed to use this module");
+			}else{
+				oneTokSession.authenticate({
+						hostName : appConfigs[configIndex].hostName,
+						appID : appConfigs[configIndex].appID,
+						appToken : appConfigs[configIndex].appToken,
+						version : appConfigs[configIndex].version,
+						onSuccess:onSuccess,
+						onError:onError 		
+				});		
+			}
+		}catch(err) {
+			var errMsg = Ti.UI.createAlertDialog({title:'Error',message:err});
+			errMsg.show();
+		}				
 	});
 	
 	return win;

@@ -33,6 +33,10 @@ typedef enum {
     BOOL logToConsole;
 }
 
+-(void)authenticate:(id)args;
+-(void)startRecording:(id)args;
+-(void)stopRecording:(id)args;
+
 -(void)setStatus:(ServiceStatus) newStatus;
 
 @end

@@ -89,10 +89,12 @@ static inline BOOL IsEmpty(id thing) {
         [self _fireEventToListener:@"onError" withObject:errEvent listener:loginFailCallback thisObject:nil];
     }    
 }
-
--(id)authenticate:(id)args
+    
+-(void)authenticate:(id)args
 {
-    ENSURE_SINGLE_ARG(args,NSDictionary);
+
+	ENSURE_SINGLE_ARG_OR_NIL(args, NSDictionary);
+    
     ENSURE_UI_THREAD(authenticate,args);
 
     //Reset if called more then once
@@ -101,14 +103,14 @@ static inline BOOL IsEmpty(id thing) {
         [self resetRelease];
     }
     
-	loginSuccessCallback = [[args objectForKey:@"onSuccess"] retain];
+    loginSuccessCallback = [[args objectForKey:@"onSuccess"] retain];
     loginFailCallback = [[args objectForKey:@"onError"] retain];
     
-    NSString *hostName = [TiUtils stringValue:[args objectForKey:@"hostName"]];
-    NSString *appID = [TiUtils stringValue:[args objectForKey:@"appID"]];
-    NSString *appToken = [TiUtils stringValue:[args objectForKey:@"appToken"]];
-    NSString *version = [TiUtils stringValue:[args objectForKey:@"version"]];
-    BOOL UseSpeex = [TiUtils boolValue:[args objectForKey:@"UseSpeex"] def:NO];
+    NSString *hostName = [TiUtils stringValue:@"hostName" properties:args def:nil];
+    NSString *appID = [TiUtils stringValue:@"appID" properties:args def:nil];
+    NSString *appToken = [TiUtils stringValue:@"appToken" properties:args def:nil];
+    NSString *version = [TiUtils stringValue:@"version" properties:args def:nil];
+    BOOL UseSpeex = [TiUtils boolValue:@"useSpeex" properties:args def:NO];
     
     if(logToConsole)
     {
@@ -141,7 +143,7 @@ static inline BOOL IsEmpty(id thing) {
 
 
 //Start recording
--(id)startRecording:(id)args
+-(void)startRecording:(id)args
 {  
     ENSURE_SINGLE_ARG(args,NSDictionary);
     ENSURE_UI_THREAD(startRecording,args);
@@ -184,7 +186,7 @@ static inline BOOL IsEmpty(id thing) {
 }
 
 //Stop the Recording process
--(id)stopRecording:(id)args
+-(void)stopRecording:(id)args
 { 
     ENSURE_UI_THREAD(stopRecording,args);
     
