@@ -11,7 +11,7 @@ The OneTok SDK has been developed as part of the OneTok Voice Platform to provid
 
 <h2>Getting Started With OneTok</h2>
 	
-* Create a developer account on [Onetok.com](http//Onetok.com)
+* Create a developer account on [Onetok.com](http://Onetok.com)
 * Create a new app
 * Add an App Name
 * Select an App Category, which will associate the app with a selection of pre-defined methods and sample sentences (e.g. for the banking category this will include methods such as getBalance, findAtm, findBranch, showTransactions and transferFunds and all of their corresponding sample sentences).
