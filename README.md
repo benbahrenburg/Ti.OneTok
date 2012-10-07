@@ -38,7 +38,7 @@ Compiled Module and Examples Coming soon...
 
 A fully working sample app.js is available in the module's example folder.
 
-Or download the example for [iOS] (https://github.com/benbahrenburg/Ti.OneTok/tree/master/iOS/example) [Android] (https://github.com/benbahrenburg/Ti.OneTok/tree/master/Android/example) .
+Or download the example for [iOS] (https://github.com/benbahrenburg/Ti.OneTok/tree/master/iOS/example) or [Android] (https://github.com/benbahrenburg/Ti.OneTok/tree/master/Android/example) .
 
 <h2>Legal Stuff</h2>
 
