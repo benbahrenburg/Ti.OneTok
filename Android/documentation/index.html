@@ -1,0 +1,221 @@
+<h1>Ti.OneTok for Android</h1>
+
+<p>Welcome to the OneTok Android Titanium module project.</p>
+
+<p>This project provides Android Titanium access to the OneTok SDK.</p>
+
+<h2>About OneTok</h2>
+
+<p>OneTok provides developers with a simple and flexible infrastructure for building voice recognition controls into mobile apps.</p>
+
+<p>The OneTok SDK has been developed as part of the OneTok Voice Platform to provide to mobile app developers a simple and easy way to add voice controls to their mobile apps. The OneTok SDK consists of a native library for iOS, Android (Blackberry and Windows Phone) as well as a series of web accessible, network-based services including voice recognition, grammars and natural language processing.</p>
+
+<h2>Getting Started With OneTok</h2>
+
+<ul>
+<li>Create a developer account on <a href="http//Onetok.com">Onetok.com</a></li>
+<li>Create a new app</li>
+<li>Add an App Name</li>
+<li>Select an App Category, which will associate the app with a selection of pre-defined methods and sample sentences (e.g. for the banking category this will include methods such as getBalance, findAtm, findBranch, showTransactions and transferFunds and all of their corresponding sample sentences).</li>
+</ul>
+
+<p>Once your app has been created OneTok will generate an App ID and App Token that the developer will use to uniquely identify their app when interacting with the OneTok API.</p>
+
+<p>Your App Keys are then provided the Ti.OneTok's authentication method.</p>
+
+<h2>OneTok Documentation</h2>
+
+<p>The OneTok SDK is fully documented and includes sample code.  Please visit their <a href="http://sandbox.onetok.com:8080/li/documentation.jsf">documentation library for details</a>.</p>
+
+<h2>Before you start using the Module</h2>
+
+<ul>
+<li>You need a OneTok account, see about for details</li>
+<li>You need Titanium 2.1.2GA or greater.</li>
+<li>This module will only work with Android 2.3 or great.  </li>
+</ul>
+
+
+<h2>Module Setup</h2>
+
+<ul>
+<li>Download the latest release from the <a href="https://github.com/benbahrenburg/Ti.OneTok/tree/master/Android/dist">dist folder</a> or you can build it yourself </li>
+<li>Install the bencoding.map module. If you need help here is a "How To" <a href="https://wiki.appcelerator.org/display/guides/Configuring+Apps+to+Use+Modules">guide</a>. </li>
+<li>You can now use the module via the commonJS require method, example shown below.</li>
+</ul>
+
+<pre><code>
+//Add the module into your project
+var oneTok = require('ti.onetok');
+
+</code></pre>
+
+<p>Now we have the module installed and avoid in our project we can start to use the components, see below for details.</p>
+
+<h2>Using Ti.OneTok</h2>
+
+<h3>Creating a Session</h3>
+
+<p>After adding the OneTok module into your tiapp.xml and placing the proper require statement as shown about, you next need to create a Session.</p>
+
+<p>The Ti.OneTok Session object contains all of the OneTok methods and listeners.</p>
+
+<pre><code>
+//Create a new session object
+var oneTokSession = oneTok.createSession();
+</code></pre>
+
+<h3>Authenticating your session</h3>
+
+<p>Before you can start using Ti.OneTok you first need to authenticate. This tells OneTok which App, App Category, and Grammars you wish to use.</p>
+
+<p>It is important to note that all OneTok methods require a network connection. Please make sure to add a Ti.Network.online check before calling any Ti.OneTok Session methods.</p>
+
+<p>The authenticate method takes a dictionary with the following properties:
+* hostName - The OneTok API string, this currently is http://sandbox.onetok.com:8080
+* appID  - Your App ID created as part of the OneTok App creation process
+* appToken - Your App token created as part of the OneTok App creation process
+* version - version of the OneTok API used
+* onSuccess - Callback method triggered when authentication is successful
+* onError - Callback method triggered when an error happens during authentication</p>
+
+<pre><code>
+
+//Sample demonstrating how to authenticate a Ti.OneTok Session
+function authenticateSession(){
+
+    function onError(e){
+        //We encountered an error, provide the details
+        Ti.API.info(e);
+        alert('Errored on Authentication');
+    };
+    function onSuccess(e){
+        //Login was successful
+        alert('Authenticated Successfully');
+    };
+
+    if(!Ti.Network.online){
+        alert("I'm sorry a network connection is needed to use this module");
+    }else{
+        oneTokSession.authenticate({
+                hostName:"http://sandbox.onetok.com:8080",
+                appID : "YOUR_APP_ID_GOES_HERE",
+                appToken : "YOUR_APP_TOKEN_GOES_HERE",
+                version : "0.1",
+                onSuccess:onSuccess, //Called when authentication is successful
+                onError:onError //Called on authentication error        
+        });     
+    }   
+};
+
+</code></pre>
+
+<h3>Start Recording</h3>
+
+<pre><code>
+
+function startRecording(){
+    var oneTokOutput = [];
+
+    //This method is called on error
+    function onError(e){
+        Ti.API.info(e);
+        alert('Errored while recording');
+    };
+
+    //This method is called as OneTok processes your
+    //speak results. This will be called several times before finish
+    function onResults(e){
+        Ti.API.info("results=" + JSON.stringify(e));
+        //We add the pending results to be used later.
+        oneTokOutput.push(e);
+        //You can check the result_type to determine if 
+        //a valid result has been returned
+        if(e.result_type=='valid'){
+            Ti.API.info("Valid Results=" + JSON.stringify(e));  
+        }
+    };
+
+    //This method is called when the recording session has finished
+    function onFinish(e){
+        alert('Recording Completed');
+        Ti.API.info(JSON.stringify(oneTokOutput));
+    };
+
+    if(!Ti.Network.online){
+        alert("I'm sorry a network connection is needed to use this module");
+    }else{      
+        oneTokSession.startRecording({
+                onResults:onResults, //Add callback to process results, called many times 
+                onError:onError, //Add callback to handle error messages
+                onFinish:onFinish  //Add callback to handle when recording has finished
+        });
+    }   
+};
+
+</code></pre>
+
+<h3>Stop Recording</h3>
+
+<p>To Stop the recording process call the stopRecording method on the Ti.OneTok Session object as shown below.</p>
+
+<pre><code>
+
+//Stop Recording
+oneTokSession.stopRecording();
+
+</code></pre>
+
+<h3>Finding the current Session Status</h3>
+
+<p>You can find the current Ti.OneTok Session status by calling the currentStatus method as shown below.</p>
+
+<pre><code>
+
+//Find current OneTok Session Status
+var foo = oneTokSession.currentStatus();
+Ti.API.info("Current Status is " + foo);
+alert("Current Status is " + foo);
+
+</code></pre>
+
+<p>The currentStatus method returns a string with the one of the below values:
+* Unknown
+* Not Authenticated
+* Authenticating
+* Authenticated
+* Iddle
+* Recording
+* Waiting For Results</p>
+
+<h2>Examples</h2>
+
+<p>A fully working sample app.js is available in the module's example folder or for download <a href="https://github.com/benbahrenburg/Ti.OneTok/tree/master/Android/example">here</a>.</p>
+
+<h2>Legal Stuff</h2>
+
+<p>Appcelerator is a registered trademark of Appcelerator, Inc. Appcelerator Titanium is a trademark of Appcelerator, Inc.</p>
+
+<p>OneTok is a registered trademark of OneTok, Inc.</p>
+
+<h2>Licensing</h2>
+
+<p>The module specific code is covered under the OSI approved Apache Public License (version 2).  Titanium and OneTok SDKs are covered under their open licensing agreements. Please contact each vendor for details.</p>
+
+<p>Please see the Titanium licensing located <a href="https://github.com/appcelerator/titanium_mobile">here</a>.</p>
+
+<p>Please see the OneTok licensing on their website <a href="http://onetok.com">here</a>.</p>
+
+<h2>Contributing</h2>
+
+<p>The Ti.OneTok is a open source project.  Please help us by contributing to documentation, reporting bugs, forking the code to add features or make bug fixes or promoting on twitter, etc.</p>
+
+<h2>Learn More</h2>
+
+<h3>Twitter</h3>
+
+<p>Please consider following the <a href="http://www.twitter.com/benCoding">@benCoding Twitter</a> for updates and more about Titanium.</p>
+
+<h3>Blog</h3>
+
+<p>For module updates, Titanium tutorials and more please check out my blog at <a href="http://benCoding.com">benCoding.Com</a>. </p>
