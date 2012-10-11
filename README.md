@@ -30,9 +30,7 @@ Documentation, Samples, and Source Code available [here](https://github.com/benb
 
 <h2>OneTok Android Module</h2>
 
-Documentation and Source Code available [here](https://github.com/benbahrenburg/Ti.OneTok/tree/master/Android)
-
-Compiled Module and Examples Coming soon...
+Documentation, Samples, and Source Code available [here](https://github.com/benbahrenburg/Ti.OneTok/tree/master/Android)
 
 <h2>Examples</h2>
 
