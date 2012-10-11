@@ -33,7 +33,7 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
 	private KrollFunction resultsCallback = null;
 	private KrollFunction errorCallback = null;
 	private KrollFunction onFinishCallback = null;
-	
+	private boolean _displayInConsule= false;
 	// Standard Debugging variables
 	private static final String LCAT = "TionetokModule";
 	
@@ -43,22 +43,25 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
 
 	ServiceStatus _status = ServiceStatus.NotAuthenticated;
 
-	private void doLog(String msg){
-		Log.i(LCAT, msg);
+	private void doLog(String msg,boolean forceLog){
+		if((_displayInConsule)||(forceLog)){
+			Log.i(LCAT, msg);
+		}
 	}
 	
 	public SessionProxy() 
 	{
 		super();
-		doLog("init with proxy id of " + getProxyId());
+		doLog("init with proxy id of " + getProxyId(),false);
 	}
 	
 
 	@Override
 	public void onAuthenticationSuccess() {
-		Log.d("TionetokModule", "On authentication success");
+		doLog("On authentication success",false);
 		setStatus(ServiceStatus.Authenticated);
 		if(loginSuccessCallback!=null){
+			doLog("starting callback loginSuccessCallback",false);
     		HashMap<String, Object> event = new HashMap<String, Object>();
 			event.put("success",true);
 			loginSuccessCallback.call(getKrollObject(), event);			
@@ -67,7 +70,7 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
 
 	@Override
 	public void onRecordingFinished() {
-		doLog("Stopped recording: " + System.currentTimeMillis());
+		doLog("Stopped recording: " + System.currentTimeMillis(),false);
 		setStatus(ServiceStatus.Iddle);
 		if(onFinishCallback!=null){
     		HashMap<String, Object> event = new HashMap<String, Object>();
@@ -79,7 +82,7 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
 
 	@Override
 	public void onError(final OneTokException exception) {
-		doLog("On error: " + exception.getMessage());
+		doLog("On error: " + exception.getMessage(),true);
 		
 		if(_status==ServiceStatus.Authenticating){
 			if(loginFailCallback!=null){
@@ -104,15 +107,28 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
 		}
 	}
 
+	private String ResultType(AnalysisResult.ResultType value){
+		String results = "none";
+		
+		if(value==AnalysisResult.ResultType.VALID ){
+			results="valid";
+		}
+		if(value==AnalysisResult.ResultType.EMPTY ){
+			results="literal";
+		}
+		return results;
+	}
+	
 	@Override
 	public void onAnalysisProcessingResult(final AnalysisResult result) {
         if (resultsCallback!=null){ 
-        	doLog("Providing results to callback");
+        	doLog("Providing results to callback",false);
     		HashMap<String, Object> event = new HashMap<String, Object>();
 			event.put("session_id",result.getSessionId());
 			event.put("success",true);
 			event.put("result",result.getAnalysisResultText());
-			event.put("pending",result.getStatus().isPendingStatus() ? "pending" : ( result.getStatus() == AnalysisResult.Status.FINALIZED ?  "finalized" : (  result.getStatus() == AnalysisResult.Status.FINALIZED_WITH_ERROR_MAXIMUM_RETRIES ? "error max retries" : "error" )));
+			event.put("analysis_status",result.getStatus().isPendingStatus() ? "pending" : ( result.getStatus() == AnalysisResult.Status.FINALIZED ?  "finalized" : (  result.getStatus() == AnalysisResult.Status.FINALIZED_WITH_ERROR_MAXIMUM_RETRIES ? "error max retries" : "error" )));
+			event.put("result_type",ResultType(result.getAnalysisResultType()));
 			resultsCallback.call(getKrollObject(), event);
         }
 	}
@@ -138,20 +154,26 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
 				break;
 		}		
 		_status = newStatus;
-		doLog("Statuns changed: " + _serviceStatus);
+		doLog("Statuns changed: " + _serviceStatus,false);
 	}
 
-	@SuppressWarnings("unused")
 	@Kroll.method
-	public void authenticate(KrollDict args)
+	public void showInConsole(Boolean showInConsole)
+	{
+		_displayInConsule=showInConsole;
+	}
+	@Kroll.method
+	public void authenticate(@SuppressWarnings("rawtypes") HashMap hm)
 	{	
+		@SuppressWarnings("unchecked")
+		KrollDict args = new KrollDict(hm);
 		String hostName = args.getString("hostName");
-		doLog("hostName: " + hostName);
+		doLog("hostName: " + hostName,false);
 		String appID = args.getString("appID");
-		doLog("appID: " + appID);
+		doLog("appID: " + appID,false);
 		String appToken = args.getString("appToken");
-		doLog("appToken: " + appToken);
-		String version = args.optString("version","");
+		doLog("appToken: " + appToken,false);
+		//String version = args.optString("version","");
 		boolean UseSpeex = args.optBoolean("useSpeex", false);
 
 		Object onSuccess = args.get("onSuccess");
@@ -164,17 +186,17 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
 			loginFailCallback = (KrollFunction)onError;
 		}
 		
+		setStatus(ServiceStatus.NotAuthenticated);
+		
 		NetworkContext ctx = new NetworkContext(appID,appToken);
-
+		
 		if (ctx != null) {
-
 			if (UseSpeex) {
 				ctx.getPreferences().setDesiredCodec(PreferencesManager.Codec.CODEC_SPEEX);
 			}
-			
 			setStatus(ServiceStatus.Authenticating);			
 			_mOneTok = new OneTok(TiApplication.getInstance().getCurrentActivity(), ctx,SessionProxy.this);
-		} 	
+		}
 	}
 
 	@Kroll.method
@@ -197,7 +219,7 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
 		if (_mOneTok != null) {
 			if(_status == ServiceStatus.Authenticated){
 				setStatus(ServiceStatus.Recording);
-				doLog("Starting to record");
+				doLog("Starting to record",false);
 				_mOneTok.startRecordingIndefinitely(null);				
 			}
 		}
@@ -208,9 +230,9 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
 		if (_mOneTok != null) {
 			_mOneTok.stopRecording();
 		}	
-		doLog("Recording Stopped");
+		doLog("Recording Stopped",false);
 	}
-	
+
 	public void onDestroy(Activity activity) 
 	{
 		// This method is called when the root context is being destroyed

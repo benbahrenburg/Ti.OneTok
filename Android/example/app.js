@@ -1,39 +1,245 @@
-// This is a test harness for your module
-// You should do something interesting in this harness 
-// to test out the module and to provide instructions 
-// to users on how to use it by example.
+// this sets the background color of the master UIView (when there are no windows/tab groups on it)
+Titanium.UI.setBackgroundColor('#000');
 
+var onetok = require('ti.onetok');
+Ti.API.info("module is => " + onetok);
+var oneTokSession = onetok.createSession();
+oneTokSession.showInConsole(true);
 
-// open a single window
-var win = Ti.UI.createWindow({
-	backgroundColor:'white'
-});
-var label = Ti.UI.createLabel();
-win.add(label);
-win.open();
+//var foo = Titanium.Media.createAudioRecorder();
 
-// TODO: write your module tests here
-var tionetok = require('ti.onetok');
-Ti.API.info("module is => " + tionetok);
+var appConfigs = [
+	{
+		title: "Bank",
+		hostName : "http://sandbox.onetok.com:8080",
+		appID : "ATV6I5WSLHE47GLXV9MX",
+		appToken : "1729DF0B-FFC2-4DA3-8C67-DF8D1E9357E5",
+		version : "0.1",
+		color:'#000',
+		hasCheck:true
+	},
+	{
+		title : "Bg colors",
+		hostName : "http://sandbox.onetok.com:8080",
+		appID : "IQTLDGOJS1AKBBFWNXHA",
+		appToken : "805BC740-243F-4E63-B3F5-BF4FCD6299BA",
+		version : "0.1",
+		color:'#000',
+		hasCheck:false		
+	},
+	{
+		title : "Weather",
+		hostName : "http://sandbox.onetok.com:8080",
+		appID : "YOICDYSXMORP8QQISCZ5",
+		appToken : "70A299D4-B210-4C88-800B-73F113D830B8",
+		version : "0.1",
+		color:'#000',
+		hasCheck:false		
+	}
+];
 
-label.text = tionetok.example();
+var configIndex=0;
 
-Ti.API.info("module exampleProp is => " + tionetok.exampleProp);
-tionetok.exampleProp = "This is a test value";
-
-if (Ti.Platform.name == "android") {
-	var proxy = tionetok.createExample({
-		message: "Creating an example Proxy",
-		backgroundColor: "red",
-		width: 100,
-		height: 100,
-		top: 100,
-		left: 150
+function openRecordingWindow(){
+	var isRecording = false;
+	
+	var win = Ti.UI.createWindow({
+		backgroundColor:'#fff',
+		title:'Test Recording',
+		tabBarHidden:true
 	});
+	
+	var btnRecord = Ti.UI.createButton({
+		title:'Start Recording', height:40, width:150, left:7, top:20
+	});
+	win.add(btnRecord);
+	
+	var tableView = Ti.UI.createTableView({
+		top:70,bottom:0, width:Ti.UI.FILL
+	});
+	win.add(tableView);
+	
+	function turnOff(){
+		isRecording=false;
+		btnRecord.title= ((isRecording) ? 'Stop Recording' : 'Start Recording');
+	};
+	
+	function manageRecordState(){
+		isRecording=!(isRecording);
+		btnRecord.title= ((isRecording) ? 'Stop Recording' : 'Start Recording');
+		
+		if(isRecording){
+			tableView.setData([]);
+			startRecording();
+		}else{
+			oneTokSession.stopRecording();	
+		}					
+	};
+	
+	btnRecord.addEventListener('click', function(){
+		manageRecordState();
+	});		
+	
+	function addRow(sessionId,outputResult,resultType,analysisStatus){
+		
+		var row = Ti.UI.createTableViewRow({	
+			selectedBackgroundColor:'#c7c8ca', backgroundColor:'#fff', height:220, hasChild:false		
+		});
+	
+		var vwRow = Ti.UI.createView({
+			left:0,right:0,height:220, layout:'vertical'
+		});
+		
+		var label1 = Ti.UI.createLabel({
+			text:'Session Id:', color:'#000', textAlign:'left', top:7, right:7, left:7, height:18,
+			font:{fontSize:14}
+		});
+		vwRow.add(label1);
 
-	proxy.printMessage("Hello world!");
-	proxy.message = "Hi world!.  It's me again.";
-	proxy.printMessage("Hello world!");
-	win.add(proxy);
-}
+		var label2 = Ti.UI.createLabel({
+			text:sessionId, color:'#000', textAlign:'left', top:7, right:7, left:7, height:20,
+			font:{fontSize:14,fontWeight:'bold'}
+		});
+		vwRow.add(label2);
+		
+		var label3 = Ti.UI.createLabel({
+			text:'Results:', color:'#000', textAlign:'left', top:7, right:7, left:7, height:18,
+			font:{fontSize:14}
+		});
+		vwRow.add(label3);
 
+		var label4 = Ti.UI.createLabel({
+			text:outputResult, color:'#000', textAlign:'left', top:7, right:7, left:7, height:20,
+			font:{fontSize:14,fontWeight:'bold'}
+		});
+		vwRow.add(label4);
+		
+		var label5 = Ti.UI.createLabel({
+			text:'Result Type:', color:'#000', textAlign:'left', top:7, right:7, left:7, height:18,
+			font:{fontSize:14}
+		});
+		vwRow.add(label5);
+
+		var label6 = Ti.UI.createLabel({
+			text:resultType, color:'#000', textAlign:'left', top:7, right:7, left:7, height:20,
+			font:{fontSize:14,fontWeight:'bold'}
+		});
+		vwRow.add(label6);
+		
+		var label7 = Ti.UI.createLabel({
+			text:'Analysis Status:', color:'#000', textAlign:'left', top:7, right:7, left:7, height:18,
+			font:{fontSize:14}
+		});
+		vwRow.add(label7);
+
+		var label8 = Ti.UI.createLabel({
+			text:analysisStatus, color:'#000', textAlign:'left', top:7, right:7, left:7, height:20,
+			font:{fontSize:14,fontWeight:'bold'}
+		});
+		vwRow.add(label8);
+						
+		row.add(vwRow);
+		
+		tableView.appendRow(row);
+					
+	};
+	
+	function startRecording(){
+
+		//This method is called on error
+		function onError(e){
+			Ti.API.info(e);
+			alert('Errored while recording');
+			turnOff();
+		};
+		
+		//This method is called as OneTok processes your
+		//speak results. This will be called several times before finish
+		function onResults(e){
+			Ti.API.info("results=" + JSON.stringify(e));
+			if(e.session_id!=null){
+				addRow(e.session_id,e.result,e.result_type,e.analysis_status);	
+			}			
+		};
+		
+		//This method is called when the recording session has finished
+		function onFinish(e){
+			alert('Recording Completed');
+			turnOff();
+		};
+		
+		if(!Ti.Network.online){
+			alert("I'm sorry a network connection is needed to use this module");
+		}else{		
+			oneTokSession.startRecording({
+					onResults:onResults, //Add callback to process results, called many times 
+					onError:onError, //Add callback to handle error messages
+					onFinish:onFinish  //Add callback to handle when recording has finished
+			});
+		}	
+	};
+
+	win.open();
+};
+function start(){
+
+	var win = Ti.UI.createWindow({
+		backgroundColor:'#fff', title:'Select Connection', tabBarHidden:true
+	});
+	
+	var infoLabel = Ti.UI.createLabel({
+		text:'Select Your App Configuration',
+		top:20, left:7, right:7, height:24, font:{fontSize:16,fontWeight:'bold'}
+	});
+	win.add(infoLabel);
+	
+	var tableView = Ti.UI.createTableView({
+		top:50, height:150, data:appConfigs 
+	});
+	win.add(tableView);
+	tableView.addEventListener('click',function(e){
+		for (var i=0;i<e.section.rows.length;i++){
+			e.section.rows[i].hasCheck = false;
+		}
+		// set current check
+		e.section.rows[e.index].hasCheck = true;
+		configIndex = e.index;			
+	});
+	
+	var btnAuthenticate = Ti.UI.createButton({
+		title:'Authenticate', height:40, width:200, bottom:60
+	});
+	win.add(btnAuthenticate);
+
+	btnAuthenticate.addEventListener('click', function(){
+		try{
+			function onError(e){
+				Ti.API.info(e);
+				alert('Errored on Authentication');
+			};
+			function onSuccess(e){
+				Ti.API.info('Authenticated Successfully, opening recording window');
+				openRecordingWindow();
+			};
+			if(!Ti.Network.online){
+				alert("I'm sorry a network connection is needed to use this module");
+			}else{
+				oneTokSession.authenticate({
+						hostName : appConfigs[configIndex].hostName,
+						appID : appConfigs[configIndex].appID,
+						appToken : appConfigs[configIndex].appToken,
+						version : appConfigs[configIndex].version,
+						onSuccess:onSuccess,
+						onError:onError 		
+				});		
+			}
+		}catch(err) {
+			var errMsg = Ti.UI.createAlertDialog({title:'Error',message:err});
+			errMsg.show();
+		}				
+	});
+	
+	win.open();
+};
+
+start();

@@ -36,6 +36,7 @@ The OneTok SDK is fully documented and includes sample code.  Please visit their
 * Install the bencoding.map module. If you need help here is a "How To" [guide](https://wiki.appcelerator.org/display/guides/Configuring+Apps+to+Use+Modules). 
 * You can now use the module via the commonJS require method, example shown below.
 
+<b>Referencing the module in your app</b>
 <pre><code>
 //Add the module into your project
 var oneTok = require('ti.onetok');
