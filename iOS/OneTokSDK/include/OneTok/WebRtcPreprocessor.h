@@ -21,11 +21,17 @@ struct WebRtcVadInst;
     bool hasVoice;
     int multiWordSilence;
 	int singleWordSilence;
-   
+    int silenceCount;
+    int voiceInterval;
+    int CumulativeMs;
+
+    id eosCallback;
 @private
     struct WebRtcVadInst* instance;
 }
 
 -(id) init;
+
+@property (nonatomic, retain) id eosCallback;
 
 @end

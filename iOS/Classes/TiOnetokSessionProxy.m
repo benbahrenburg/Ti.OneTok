@@ -118,9 +118,8 @@ static inline BOOL IsEmpty(id thing) {
     }
     
     if (hostName != nil && version != nil && appID != nil && appToken != nil)
-    {	
-    
-        ctx = [[NetworkContext alloc] initWithAppID:appID token:appToken version:version rootURL:hostName];
+    {        
+        ctx = [[NetworkContext alloc] initWithAppID:appID token:appToken rootURL:hostName];
     
     } 
     else if (appID != nil && appToken != nil) 

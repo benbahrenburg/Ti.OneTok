@@ -23,5 +23,6 @@
 -(void) appendInstance:(id<AudioRecordingProcessor>) item;
 -(void) clear;
 -(bool) hasProcessor:(Class) item;
+-(id) getProcessor: (Class) item;
 
 @end

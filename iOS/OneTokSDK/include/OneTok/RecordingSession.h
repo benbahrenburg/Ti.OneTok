@@ -15,6 +15,8 @@
     int frameRate;
     int frameLength;
     int sampleSize;
+    float threshDb;
+    float threshFrac;
     NSString* encoder;
 }
 
@@ -28,6 +30,8 @@
 @property (nonatomic) int frameRate;
 @property (nonatomic) int frameLength;
 @property (nonatomic) int sampleSize;
+@property (nonatomic) float threshDb;
+@property (nonatomic) float threshFrac;
 
 -(id) initWithRootAddress:(NSURL*) theAddress;
 

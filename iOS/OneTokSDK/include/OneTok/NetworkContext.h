@@ -13,6 +13,7 @@
 @interface NetworkContext : NSObject {
     NSString* appID;
     NSString* appToken;
+    NSURL* debugUrl;
 	NSURL* baseAddress;
 	NSURL* authenticationAddress;
     AuthenticationToken* authenticationToken;
@@ -23,14 +24,15 @@
 @property(retain, nonatomic, readonly) NSString* appID;
 @property(retain, nonatomic, readonly) NSString* appToken;
 @property(retain, nonatomic) AuthenticationToken* authenticationToken;
-@property(retain, readonly) NSURL* authenticationURL;
-@property(retain, readonly) NSURL* createURL;
-@property(retain, readonly) PreferencesManager* preferencesManager;
+@property(retain, nonatomic, readonly) NSURL* authenticationURL;
+@property(retain, nonatomic, readonly) NSURL* createURL;
+@property(retain, nonatomic, readonly) PreferencesManager* preferencesManager;
+@property(retain, nonatomic) NSURL* debugUrl;
 
 - (id) initWithAppID: (NSString*) theAppId token:(NSString*) theToken;
 
-- (id) initWithAppID:(NSString *)theAppId token:(NSString *)theToken version:(NSString*) theVersion;
+- (id) initWithAppID:(NSString *)theAppId token:(NSString *)theToken rootURL:(NSString*) theRootURL;
 
-- (id) initWithAppID:(NSString *)theAppId token:(NSString *)theToken version:(NSString *)theVersion rootURL:(NSString*) theRootURL;
+- (bool) checkAudioSpecs:(int) samplerate: (int) samplesize: (NSString *)strcodec;
 
 @end

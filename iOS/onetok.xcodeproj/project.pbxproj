@@ -29,12 +29,25 @@
 		4311A77615CF27DE008C7BA8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4311A77315CF27DE008C7BA8 /* AudioToolbox.framework */; };
 		4311A77815CF27DE008C7BA8 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4311A77515CF27DE008C7BA8 /* CoreAudio.framework */; };
 		4311A77B15CF2A92008C7BA8 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4311A77A15CF2A92008C7BA8 /* AudioUnit.framework */; };
+		43424FFF16C41D39001104FB /* AnalysisResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FF016C41D39001104FB /* AnalysisResult.h */; };
+		4342500016C41D39001104FB /* AudioProcessingPipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FF116C41D39001104FB /* AudioProcessingPipeline.h */; };
+		4342500116C41D39001104FB /* AudioRecordingProcessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FF216C41D39001104FB /* AudioRecordingProcessor.h */; };
+		4342500216C41D39001104FB /* AuthenticationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FF316C41D39001104FB /* AuthenticationToken.h */; };
+		4342500316C41D39001104FB /* NetworkContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FF416C41D39001104FB /* NetworkContext.h */; };
+		4342500416C41D39001104FB /* NetworkServicesProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FF516C41D39001104FB /* NetworkServicesProvider.h */; };
+		4342500516C41D39001104FB /* NetworkTransferProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FF616C41D39001104FB /* NetworkTransferProvider.h */; };
+		4342500616C41D39001104FB /* OneTok.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FF716C41D39001104FB /* OneTok.h */; };
+		4342500716C41D39001104FB /* OneTokEventsListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FF816C41D39001104FB /* OneTokEventsListener.h */; };
+		4342500816C41D39001104FB /* OneTokException.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FF916C41D39001104FB /* OneTokException.h */; };
+		4342500916C41D39001104FB /* OneTokObjectsProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FFA16C41D39001104FB /* OneTokObjectsProxy.h */; };
+		4342500A16C41D39001104FB /* PreferencesManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FFB16C41D39001104FB /* PreferencesManager.h */; };
+		4342500B16C41D39001104FB /* RecordingSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FFC16C41D39001104FB /* RecordingSession.h */; };
+		4342500C16C41D39001104FB /* SpeexEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FFD16C41D39001104FB /* SpeexEncoder.h */; };
+		4342500D16C41D39001104FB /* WebRtcPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 43424FFE16C41D39001104FB /* WebRtcPreprocessor.h */; };
 		436571FC15CEC08500EE1B9B /* OnetokCustomObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = 436571FA15CEC08500EE1B9B /* OnetokCustomObjects.h */; };
 		436571FD15CEC08500EE1B9B /* OnetokCustomObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 436571FB15CEC08500EE1B9B /* OnetokCustomObjects.m */; };
 		43A6BDB715CB2CB800A1BE92 /* libonetoksdk.iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A6BDB315CB2CB800A1BE92 /* libonetoksdk.iphoneos.a */; };
-		43A6BDB815CB2CB800A1BE92 /* libonetoksdk.iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A6BDB415CB2CB800A1BE92 /* libonetoksdk.iphonesimulator.a */; };
 		43A6BDB915CB2CB800A1BE92 /* librestclient.iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A6BDB515CB2CB800A1BE92 /* librestclient.iphoneos.a */; };
-		43A6BDBA15CB2CB800A1BE92 /* librestclient.iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A6BDB615CB2CB800A1BE92 /* librestclient.iphonesimulator.a */; };
 		43A6BDBE15CB2D3000A1BE92 /* TiOnetokSessionProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6BDBC15CB2D3000A1BE92 /* TiOnetokSessionProxy.h */; };
 		43A6BDBF15CB2D3000A1BE92 /* TiOnetokSessionProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6BDBD15CB2D3000A1BE92 /* TiOnetokSessionProxy.m */; };
 		AA747D9F0F9514B9006C5449 /* TiOnetok_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* TiOnetok_Prefix.pch */; };
@@ -60,12 +73,25 @@
 		4311A77315CF27DE008C7BA8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4311A77515CF27DE008C7BA8 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		4311A77A15CF2A92008C7BA8 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		43424FF016C41D39001104FB /* AnalysisResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalysisResult.h; sourceTree = "<group>"; };
+		43424FF116C41D39001104FB /* AudioProcessingPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioProcessingPipeline.h; sourceTree = "<group>"; };
+		43424FF216C41D39001104FB /* AudioRecordingProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecordingProcessor.h; sourceTree = "<group>"; };
+		43424FF316C41D39001104FB /* AuthenticationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationToken.h; sourceTree = "<group>"; };
+		43424FF416C41D39001104FB /* NetworkContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkContext.h; sourceTree = "<group>"; };
+		43424FF516C41D39001104FB /* NetworkServicesProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkServicesProvider.h; sourceTree = "<group>"; };
+		43424FF616C41D39001104FB /* NetworkTransferProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTransferProvider.h; sourceTree = "<group>"; };
+		43424FF716C41D39001104FB /* OneTok.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneTok.h; sourceTree = "<group>"; };
+		43424FF816C41D39001104FB /* OneTokEventsListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneTokEventsListener.h; sourceTree = "<group>"; };
+		43424FF916C41D39001104FB /* OneTokException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneTokException.h; sourceTree = "<group>"; };
+		43424FFA16C41D39001104FB /* OneTokObjectsProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneTokObjectsProxy.h; sourceTree = "<group>"; };
+		43424FFB16C41D39001104FB /* PreferencesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesManager.h; sourceTree = "<group>"; };
+		43424FFC16C41D39001104FB /* RecordingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingSession.h; sourceTree = "<group>"; };
+		43424FFD16C41D39001104FB /* SpeexEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeexEncoder.h; sourceTree = "<group>"; };
+		43424FFE16C41D39001104FB /* WebRtcPreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebRtcPreprocessor.h; sourceTree = "<group>"; };
 		436571FA15CEC08500EE1B9B /* OnetokCustomObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnetokCustomObjects.h; path = Classes/OnetokCustomObjects.h; sourceTree = "<group>"; };
 		436571FB15CEC08500EE1B9B /* OnetokCustomObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnetokCustomObjects.m; path = Classes/OnetokCustomObjects.m; sourceTree = "<group>"; };
 		43A6BDB315CB2CB800A1BE92 /* libonetoksdk.iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libonetoksdk.iphoneos.a; path = OneTokSDK/libonetoksdk.iphoneos.a; sourceTree = "<group>"; };
-		43A6BDB415CB2CB800A1BE92 /* libonetoksdk.iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libonetoksdk.iphonesimulator.a; path = OneTokSDK/libonetoksdk.iphonesimulator.a; sourceTree = "<group>"; };
 		43A6BDB515CB2CB800A1BE92 /* librestclient.iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librestclient.iphoneos.a; path = OneTokSDK/librestclient.iphoneos.a; sourceTree = "<group>"; };
-		43A6BDB615CB2CB800A1BE92 /* librestclient.iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librestclient.iphonesimulator.a; path = OneTokSDK/librestclient.iphonesimulator.a; sourceTree = "<group>"; };
 		43A6BDBC15CB2D3000A1BE92 /* TiOnetokSessionProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiOnetokSessionProxy.h; path = Classes/TiOnetokSessionProxy.h; sourceTree = "<group>"; };
 		43A6BDBD15CB2D3000A1BE92 /* TiOnetokSessionProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TiOnetokSessionProxy.m; path = Classes/TiOnetokSessionProxy.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* TiOnetok_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiOnetok_Prefix.pch; sourceTree = SOURCE_ROOT; };
@@ -82,9 +108,7 @@
 				4311A77615CF27DE008C7BA8 /* AudioToolbox.framework in Frameworks */,
 				4311A77815CF27DE008C7BA8 /* CoreAudio.framework in Frameworks */,
 				43A6BDB715CB2CB800A1BE92 /* libonetoksdk.iphoneos.a in Frameworks */,
-				43A6BDB815CB2CB800A1BE92 /* libonetoksdk.iphonesimulator.a in Frameworks */,
 				43A6BDB915CB2CB800A1BE92 /* librestclient.iphoneos.a in Frameworks */,
-				43A6BDBA15CB2CB800A1BE92 /* librestclient.iphonesimulator.a in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,13 +171,43 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		43424FEE16C41D39001104FB /* include */ = {
+			isa = PBXGroup;
+			children = (
+				43424FEF16C41D39001104FB /* OneTok */,
+			);
+			name = include;
+			path = OneTokSDK/include;
+			sourceTree = "<group>";
+		};
+		43424FEF16C41D39001104FB /* OneTok */ = {
+			isa = PBXGroup;
+			children = (
+				43424FF016C41D39001104FB /* AnalysisResult.h */,
+				43424FF116C41D39001104FB /* AudioProcessingPipeline.h */,
+				43424FF216C41D39001104FB /* AudioRecordingProcessor.h */,
+				43424FF316C41D39001104FB /* AuthenticationToken.h */,
+				43424FF416C41D39001104FB /* NetworkContext.h */,
+				43424FF516C41D39001104FB /* NetworkServicesProvider.h */,
+				43424FF616C41D39001104FB /* NetworkTransferProvider.h */,
+				43424FF716C41D39001104FB /* OneTok.h */,
+				43424FF816C41D39001104FB /* OneTokEventsListener.h */,
+				43424FF916C41D39001104FB /* OneTokException.h */,
+				43424FFA16C41D39001104FB /* OneTokObjectsProxy.h */,
+				43424FFB16C41D39001104FB /* PreferencesManager.h */,
+				43424FFC16C41D39001104FB /* RecordingSession.h */,
+				43424FFD16C41D39001104FB /* SpeexEncoder.h */,
+				43424FFE16C41D39001104FB /* WebRtcPreprocessor.h */,
+			);
+			path = OneTok;
+			sourceTree = "<group>";
+		};
 		4365720815CEC7BB00EE1B9B /* OneTok */ = {
 			isa = PBXGroup;
 			children = (
+				43424FEE16C41D39001104FB /* include */,
 				43A6BDB315CB2CB800A1BE92 /* libonetoksdk.iphoneos.a */,
-				43A6BDB415CB2CB800A1BE92 /* libonetoksdk.iphonesimulator.a */,
 				43A6BDB515CB2CB800A1BE92 /* librestclient.iphoneos.a */,
-				43A6BDB615CB2CB800A1BE92 /* librestclient.iphonesimulator.a */,
 			);
 			name = OneTok;
 			sourceTree = "<group>";
@@ -170,6 +224,21 @@
 				24DE9E1111C5FE74003F90F6 /* TiOnetokModuleAssets.h in Headers */,
 				43A6BDBE15CB2D3000A1BE92 /* TiOnetokSessionProxy.h in Headers */,
 				436571FC15CEC08500EE1B9B /* OnetokCustomObjects.h in Headers */,
+				43424FFF16C41D39001104FB /* AnalysisResult.h in Headers */,
+				4342500016C41D39001104FB /* AudioProcessingPipeline.h in Headers */,
+				4342500116C41D39001104FB /* AudioRecordingProcessor.h in Headers */,
+				4342500216C41D39001104FB /* AuthenticationToken.h in Headers */,
+				4342500316C41D39001104FB /* NetworkContext.h in Headers */,
+				4342500416C41D39001104FB /* NetworkServicesProvider.h in Headers */,
+				4342500516C41D39001104FB /* NetworkTransferProvider.h in Headers */,
+				4342500616C41D39001104FB /* OneTok.h in Headers */,
+				4342500716C41D39001104FB /* OneTokEventsListener.h in Headers */,
+				4342500816C41D39001104FB /* OneTokException.h in Headers */,
+				4342500916C41D39001104FB /* OneTokObjectsProxy.h in Headers */,
+				4342500A16C41D39001104FB /* PreferencesManager.h in Headers */,
+				4342500B16C41D39001104FB /* RecordingSession.h in Headers */,
+				4342500C16C41D39001104FB /* SpeexEncoder.h in Headers */,
+				4342500D16C41D39001104FB /* WebRtcPreprocessor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

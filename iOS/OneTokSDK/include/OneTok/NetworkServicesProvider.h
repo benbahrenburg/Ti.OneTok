@@ -13,7 +13,7 @@
 @class RecordingSession;
 
 @protocol NetworkServicesProvider
-- (void) authenticate:(NetworkContext*) context;
+- (void) authenticate:(NetworkContext*) context uuid:(NSString*) uuid imei:(NSString*) IMEI model:(NSString*)model os:(NSString*)os locale:(NSString*) locale;
 - (bool) createRecognizer: (NetworkContext*) context andSession:(RecordingSession*) session andAppState:(NSString*) applicationState;
 - (AnalysisResult*) getAnalysisResult: (RecordingSession*) session;
 - (void) cancelAnalysis:(AnalysisResult*) analysis;

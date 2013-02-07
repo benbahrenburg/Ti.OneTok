@@ -8,8 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+enum FeedingStatus {
+    FEEDING_STATUS_IN_RECOGNITION,
+    FEEDING_STATUS_INVALID_FEED,
+    FEEDING_STATUS_CONTINUE_FEEDING,
+    FEEDING_STATUS_ERROR
+};
+
 @protocol NetworkTransferProvider <NSObject> 
-- (bool) sendVoiceData:(NSData*) data dataSequence:(int) sequence token: (NSString*) accessToken;
+- (enum FeedingStatus) sendVoiceData:(NSData*) data dataSequence:(int) sequence token: (NSString*) accessToken;
 - (void) setFeedingAddress:(NSURL*) address;
 
 @end

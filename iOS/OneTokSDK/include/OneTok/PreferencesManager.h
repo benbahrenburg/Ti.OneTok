@@ -17,7 +17,9 @@ enum OneTokServerCodec{
 @interface PreferencesManager : NSObject {
     enum OneTokServerCodec desiredCodec;
     int desiredFrameRate;
-    int desiredSampleSize;    
+    int desiredSampleSize;
+    float threshDb;
+    float threshFrac;
     NSMutableArray* preferences;
 }
 
@@ -28,6 +30,7 @@ enum OneTokServerCodec{
 -(void) setupPreferencesFromJSon:(NSDictionary*) dict;
 -(void) resolvePipeline:(AudioProcessingPipeline*) pipeline;
 -(void) resolveSession:(RecordingSession*) session;
+-(bool) checkAudioSpecs:(int) samplerate: (int) samplesize: (NSString*) strcodec;
 
 -(id) init;
 

@@ -76,7 +76,7 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
     		HashMap<String, Object> event = new HashMap<String, Object>();
 			event.put("message","Recording finished");
 			event.put("success",true);
-			resultsCallback.call(getKrollObject(), event);
+			onFinishCallback.call(getKrollObject(), event);
 		}
 	}
 
@@ -217,7 +217,8 @@ public class SessionProxy extends KrollProxy implements OneTokEventsListener{
 		}			
 		
 		if (_mOneTok != null) {
-			if(_status == ServiceStatus.Authenticated){
+			if((_status == ServiceStatus.Authenticated) || 
+					(_status == ServiceStatus.Iddle)){
 				setStatus(ServiceStatus.Recording);
 				doLog("Starting to record",false);
 				_mOneTok.startRecordingIndefinitely(null);				
